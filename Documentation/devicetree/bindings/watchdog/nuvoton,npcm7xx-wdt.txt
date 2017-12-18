@@ -1,0 +1,23 @@
+Nuvoton NPCM7xx watchdog timer
+
+Nuvoton NPCM7xx have three watchdog timer modules, each watchdog timer is a free-running timer
+with programmable timeout intervals.
+
+Required properties:
+- compatible      : "nuvoton,npcm750-wdt" for Poleg NPCM750.
+- reg             : Offset and length of the register set for the device.
+- interrupts      : Contain the timer interrupt with flags for
+                    falling edge.
+
+Optional:
+- clocks          : phandle of watchdog timer reference clock.
+
+Example:
+
+watchdog0: watchdog@f0008000 {
+	compatible = "nuvoton,npcm750-wdt";
+	interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>;
+	reg = <0xf0008000 0x1000>;
+	status = "disabled";
+	clocks = <&clk NPCM7XX_CLK_TIMER>;
+};
