@@ -1,0 +1,16 @@
+Nuvoton NPCM7xx Pulse-width modulation (PWM) controller device driver
+
+The NPCM7xx PWM controller supports upto 8 PWM outputs.
+Each PWM output module have watchdog.
+
+Required properties:
+- compatible      : "nuvoton,npcm750-pwm" for Poleg NPCM750.
+- reg             : Offset and length of the registers set for the device.
+- clocks          : phandle of pwm reference clock.
+
+pwm:pwm@f0103000 {
+	compatible = "nuvoton,npcm750-pwm";
+	reg = <0xf0103000 0x1000
+				0xf0104000 0x1000>;
+	clocks = <&clk NPCM7XX_CLK_APB3>;
+};

@@ -1,0 +1,18 @@
+Nuvoton NPCM7xx fan tachometer (Fan) controller device driver
+
+The NPCM7xx fan tachometer controller supports upto 16 Fan inputs.
+
+Required properties:
+- compatible      : "nuvoton,npcm750-fan" for Poleg NPCM750.
+- reg             : Offset and length of the register set for the device.
+- clocks          : phandle of fan reference clock.
+- interrupts      : Contain the fan interrupts with flags for
+                    falling edge.
+
+fan: fan@0 {
+	compatible = "nuvoton,npcm750-fan";
+	reg = <0xf0180000 0x8000>;
+	interrupts = <0 96 4>, <0 97 4>, <0 98 4>, <0 99 4>,
+		<0 100 4>, <0 101 4>, <0 102 4>, <0 103 4>;
+	clocks = <&clk NPCM7XX_CLK_APB4>;
+};
