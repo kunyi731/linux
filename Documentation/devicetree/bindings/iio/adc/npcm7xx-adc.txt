@@ -1,0 +1,23 @@
+Nuvoton NPCM7XX Analog to Digital Converter (ADC)
+
+The NPCM7XX ADC is a 10-bit converter for eight channel inputs,
+The ADC module includes an eight-to-one multiplexer.
+
+Required properties:
+- compatible      : "nuvoton,npcm750-adc" for Poleg NPCM750.
+- reg             : Offset and length of the register set for the device.
+
+Required clocking property, have to be one of:
+- clocks          : phandle of timer reference clock.
+- clock-names	  : Must contain "clk_adc", matching entry in the clocks property.
+- vref			  : ADC Reference voltage, defualt 2048.
+
+Example:
+
+adc: adc@f000c000 {
+	compatible = "nuvoton,npcm750-adc";
+	reg = <0xf000c000 0x1000>;
+	clocks = <&clk NPCM7XX_CLK_ADC>;
+	clock-names = "clk_adc";
+	vref = <2048>;
+};
