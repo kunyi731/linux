@@ -1,0 +1,454 @@
+// SPDX-License-Identifier: GPL-2.0
+// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
+// Copyright 2018 Google, Inc.
+
+/dts-v1/;
+#include "nuvoton-npcm730.dtsi"
+
+/ {
+	model = "Rockaway npcm730 Development Board (Device Tree)";
+	compatible = "nuvoton,npcm750";
+
+	aliases {
+		ethernet0 = &emc0;
+		ethernet1 = &gmac0;
+		serial0 = &serial0;
+		serial1 = &serial1;
+		serial2 = &serial2;
+		serial3 = &serial3;
+		i2c0 = &i2c0;
+		i2c1 = &i2c1;
+		i2c2 = &i2c2;
+		i2c3 = &i2c3;
+		i2c4 = &i2c4;
+		i2c5 = &i2c5;
+		i2c6 = &i2c6;
+		i2c7 = &i2c7;
+		i2c8 = &i2c8;
+		i2c9 = &i2c9;
+		i2c10 = &i2c10;
+		i2c11 = &i2c11;
+		i2c12 = &i2c12;
+		i2c13 = &i2c13;
+		i2c14 = &i2c14;
+		i2c15 = &i2c15;
+	};
+
+	chosen {
+		stdout-path = &serial3;
+	};
+
+	memory {
+		reg = <0 0x40000000>;
+	};
+
+	ahb {
+	        gmac0: eth@f0802000 {
+			status = "okay";
+		};
+
+
+		emc0: eth@f0825000 {
+			phy-mode = "rmii";
+			#use-ncsi; /* add this to support ncsi */
+			status = "okay";
+		};
+
+		ehci1: ehci@f0806000 {
+			status = "okay";
+		};
+
+		ohci1: ohci@f0807000 {
+			status = "okay";
+		};
+
+		aes:aes@f0858000 {
+			status = "okay";
+		};
+
+		sha:sha@f085a000 {
+			status = "okay";
+		};
+
+		spi0: spi@fb000000 {
+			spi-nor@0 {
+				partitions@80000000 {
+					compatible = "fixed-partitions";
+					#address-cells = <1>;
+					#size-cells = <1>;
+					bbuboot1@0 {
+						label = "bb-uboot-1";
+						reg = <0x0000000 0x80000>;
+						read-only;
+						};
+					bbuboot2@80000 {
+						label = "bb-uboot-2";
+						reg = <0x0080000 0x80000>;
+						read-only;
+						};
+					envparam@100000 {
+						label = "env-param";
+						reg = <0x0100000 0x40000>;
+						read-only;
+						};
+					spare@140000 {
+						label = "spare";
+						reg = <0x0140000 0xC0000>;
+						};
+					kernel@200000 {
+						label = "kernel";
+						reg = <0x0200000 0x400000>;
+						};
+					rootfs@600000 {
+						label = "rootfs";
+						reg = <0x0600000 0x700000>;
+						};
+					spare1@D00000 {
+						label = "spare1";
+						reg = <0x0D00000 0x200000>;
+						};
+					spare2@0F00000 {
+						label = "spare2";
+						reg = <0x0F00000 0x200000>;
+						};
+					spare3@1100000 {
+						label = "spare3";
+						reg = <0x1100000 0x200000>;
+						};
+					spare4@1300000 {
+						label = "spare4";
+						reg = <0x1300000 0x0>;
+					};
+				};
+			};
+		};
+
+		spi3: spi@c0000000 {
+				spi-nor@0 {
+				partitions@A0000000 {
+					compatible = "fixed-partitions";
+					#address-cells = <1>;
+					#size-cells = <1>;
+					system1@0 {
+						label = "spi3-system1";
+						reg = <0x0 0x800000>;
+					};
+					system2@800000 {
+						label = "spi3-system2";
+						reg = <0x800000 0x0>;
+					};
+				};
+			};
+		};
+
+		sdhci0: sdhci@f0840000 {
+			status = "okay";
+		};
+
+		sdhci1: sdhci@f0842000 {
+			status = "okay";
+		};
+
+		apb {
+
+			watchdog1: watchdog@901C {
+				status = "okay";
+			};
+
+			rng: rng@b000 {
+				status = "okay";
+			};
+
+			serial0: serial@1000 {
+				status = "okay";
+			};
+
+			serial1: serial@2000 {
+				status = "okay";
+			};
+
+			serial2: serial@3000 {
+				status = "okay";
+			};
+
+			serial3: serial@4000 {
+				status = "okay";
+			};
+
+			otp:otp@189000 {
+				status = "okay";
+			};
+
+			lpc_kcs: lpc_kcs@7000 {
+				kcs1: kcs1@0 {
+					status = "okay";
+				};
+
+				kcs2: kcs2@0 {
+					status = "okay";
+				};
+
+				kcs3: kcs3@0 {
+					status = "okay";
+				};
+			};
+
+			/* lm75 on SVB */
+			i2c0: i2c-bus@80000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+			/* lm75 on EB */
+			i2c1: i2c-bus@81000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+			i2c2: i2c-bus@82000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+			i2c6: i2c-bus@86000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+			i2c3: i2c-bus@83000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+			i2c4: i2c-bus@84000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+			i2c5: i2c-bus@85000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+			i2c7: i2c-bus@87000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+			i2c8: i2c-bus@88000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+			i2c9: i2c-bus@89000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+			i2c10: i2c-bus@8a000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+			i2c11: i2c-bus@8b000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+			i2c14: i2c-bus@8e000 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+			};
+
+
+			fan: fan@0 {
+				pinctrl-names = "default";
+				pinctrl-0 = <   &fanin0_pins
+						&fanin1_pins
+						&fanin2_pins
+						&fanin3_pins
+						&fanin4_pins
+						&fanin5_pins
+						&fanin6_pins
+					&fanin7_pins>;
+				status = "okay";
+			};
+
+			pwm: pwm@103000 {
+				pinctrl-names = "default";
+				pinctrl-0 = <	&pwm0_pins
+						&pwm1_pins
+						&pwm2_pins
+						&pwm3_pins
+						&pwm4_pins
+						&pwm5_pins
+						&pwm6_pins
+						&pwm7_pins>;
+				status = "okay";
+			};
+
+	/* Here is an example for future pspi binding */
+	/*
+			pspi: pspi@0 {
+				pinctrl-names = "default";
+				pinctrl-0 = <&pspi1_pins &pspi2_pins &gpio20o_pins &gpio203o_pins> ;
+				cs-gpios = <&gpio 20 1>, <&gpio 203 1>;
+				status = "okay";
+			};
+	*/
+		};
+	};
+
+	pinctrl: pinctrl@0 {
+		pinctrl-names = "default";
+		pinctrl-0 = <	&iox1_pins
+				&gpio4_pins
+				&gpio5_pins
+				&gpio6o_pins
+				&gpio7o_pins
+				&gpio8_pins
+				&gpio9_pins
+				&gpio10_pins
+				&gpio11_pins
+				&gpio12o_pins
+				&gpio13_pins
+				&gpio14_pins
+				&gpio15o_pins
+				&gpio16o_pins
+				&gpio17o_pins
+				&gpio18ol_pins
+				&gpio19ol_pins
+				&gpio20_pins
+				&gpio21_pins
+				&gpio24_pins
+				&gpio25_pins
+				&gpio26_pins
+				&gpio27_pins
+				&gpio32_pins
+				&gpio37ol_pins
+				&gpio38ol_pins
+				&gpio39ol_pins
+				&gpio40ol_pins
+				&jtag2_pins
+				&gpio59_pins
+				&gpio60_pins
+				&gpio61_pins
+				&gpio62_pins
+				&gpio63_pins
+				&gpio72_pins
+				&gpio73_pins
+				&gpio74_pins
+				&gpio75_pins
+				&gpio76_pins
+				&gpio77_pins
+				&gpio78_pins
+				&gpio79_pins
+				&gpio84o_pins
+				&gpio85o_pins
+				&gpio86o_pins
+				&gpio87o_pins
+				&gpio88_pins
+				&gpio89_pins
+				&gpio90_pins
+				&gpio91_pins
+				&gpio92_pins
+				&gpio93_pins
+				&gpio94o_pins
+				&gpio110ol_pins
+				&gpio111ol_pins
+				&gpio112ol_pins
+				&gpio113ol_pins
+				&gpio120_pins
+				&gpio121_pins
+				&gpio122_pins
+				&gpio123_pins
+				&gpio124_pins
+				&gpio125_pins
+				&gpio126_pins
+				&gpio127_pins
+				&gpio136_pins
+				&gpio137_pins
+				&gpio138_pins
+				&gpio139_pins
+				&gpio140_pins
+				&gpio141_pins
+				&gpio142_pins
+				&gpio143_pins
+				&gpio148ol_pins
+				&gpio149ol_pins
+				&gpio150ol_pins
+				&gpio151ol_pins
+				&gpio152ol_pins
+				&gpio153_pins
+				&gpio154ol_pins
+				&gpio155_pins
+				&gpio156_pins
+				&gpio157ol_pins
+				&gpio158ol_pins
+				&gpio159ol_pins
+				&gpio160ol_pins
+				&serirq_pins
+				&lpc_pins
+				&gpio168ol_pins
+				&gpio169o_pins
+				&gpio170_pins
+				&gpio173o_pins
+				&gpio174_pins
+				&gpio175o_pins
+				&gpio176o_pins
+				&gpio177ol_pins
+				&gpio187o_pins
+				&gpio188o_pins
+				&gpio189o_pins
+				&gpio190_pins
+				&gpio191o_pins
+				&gpio192ol_pins
+				&gpio194_pins
+				&gpio195_pins
+				&gpio196_pins
+				&gpio197o_pins
+				&gpio198o_pins
+				&gpio199_pins
+				&gpio200_pins
+				&gpio202_pins
+				&gpio203ol_pins
+				&gpio204o_pins
+				&gpio205o_pins
+				&gpio206o_pins
+				&gpio207o_pins
+				&ddc_pins
+				&gpio208ol_pins
+				&gpio209_pins
+				&gpio210ol_pins
+				&gpio211ol_pins
+				&gpio212o_pins
+				&gpio213o_pins
+				&gpio214ol_pins
+				&gpio215ol_pins
+				&gpio216ol_pins
+				&gpio217ol_pins
+				&gpio218_pins
+				&gpio219_pins
+				&gpio224ol_pins
+				&gpio225_pins
+				&gpio226_pins
+				&gpio227ol_pins
+				&gpio228_pins
+				&gpio229_pins
+				&gpio230ol_pins
+				&clkreq_pins>;
+	};
+};
