@@ -1,0 +1,31 @@
+* Nuvoton Serial Peripheral Interface(SPI)
+
+Required properties:
+  - compatible : "nuvoton,npcm750-spi" for NPCM750 BMC
+  - #address-cells : should be 1.
+  - #size-cells : should be 0.
+  - reg : the first contains the register location and length,
+          the second contains the memory mapping address and length
+  - reg-names: Should contain the reg names "control" and "memory"
+  - clocks : phandle of SPI reference clock.
+
+Optional properties:
+  - chip-max-address-map: Chip maximum address mapping for direct use.
+  			  the maximum address map size:
+			  NPCM7xx - 0x8000000 (128Mb)
+
+Example:
+
+spi0: spi@fb000000 {
+	compatible = "nuvoton,npcm750-spi";
+	#address-cells = <1>;
+	#size-cells = <0>;
+	reg = <0xfb000000 0x1000>, <0x80000000 0x10000000>;
+	reg-names = "control", "memory";
+	chip-max-address-map = <0x8000000>;
+	clocks = <&clk NPCM7XX_CLK_AHB>;
+	spi-nor@0 {
+			...
+	};
+};
+
